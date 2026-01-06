@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학생 맞춤형 성장 지원 시뮬레이터 v3.2</title>
+    <title>학생 맞춤형 성장 지원 시뮬레이터 v3.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@
             <div>
                 <h1 class="text-3xl font-bold text-blue-900 flex items-center gap-3">
                     <i data-lucide="brain-circuit" class="w-8 h-8"></i>
-                    학생성장지원 시뮬레이터 v3.2
+                    학생성장지원 시뮬레이터 v3.4
                 </h1>
                 <p class="text-slate-500 mt-1 font-medium">데이터 기반 진단-처방-성장 프로세스 워크숍</p>
             </div>
@@ -80,7 +80,7 @@
                         <i data-lucide="info" class="w-4 h-4"></i> 워크숍 가이드
                     </h4>
                     <p class="text-xs opacity-80 leading-relaxed">
-                        학생의 로그 데이터를 분석하고 선생님만의 고유한 교육 전략을 직접 입력하여 세상에 하나뿐인 성장 설계도를 완성해보세요.
+                        학생의 로그 데이터를 분석하고 전문가의 맞춤형 처방과 선생님의 추가 처방을 결합하여 완성도 높은 성장 설계도를 제작하세요.
                     </p>
                 </div>
             </aside>
@@ -377,14 +377,14 @@
                 main.innerHTML = `
                     <div class="bg-white p-8 md:p-10 rounded-3xl shadow-md border fade-in h-full">
                         <h2 class="text-2xl font-bold text-pink-700 mb-8 flex items-center gap-3">
-                            <i data-lucide="handshake" class="w-7 h-7"></i> 3단계: 맞춤형 처방 및 전략 수립
+                            <i data-lucide="handshake" class="w-7 h-7"></i> 3단계: 맞춤형 성장처방 수립
                         </h2>
                         
                         <div class="space-y-10">
                             <!-- AI 처방 -->
                             <section>
                                 <h4 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
-                                    <i data-lucide="cpu" class="w-5 h-5 text-pink-500"></i> AI·디지털 기반 처방 (모두 선택 가능)
+                                    <i data-lucide="cpu" class="w-5 h-5 text-pink-500"></i> 맞춤형 AI·디지털 기반 처방 (모두 선택 가능)
                                 </h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     ${p.prescriptions.ai.map(item => `
@@ -399,7 +399,7 @@
                             <!-- 휴먼 터치 -->
                             <section>
                                 <h4 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
-                                    <i data-lucide="heart" class="w-5 h-5 text-blue-500"></i> 교사 휴먼 터치 전략 (모두 선택 가능)
+                                    <i data-lucide="heart" class="w-5 h-5 text-blue-500"></i> 맞춤형 휴먼 터치 전략 (모두 선택 가능)
                                 </h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     ${p.prescriptions.human.map(item => `
@@ -411,20 +411,20 @@
                                 </div>
                             </section>
 
-                            <!-- 사용자 직접 기록 (New) -->
+                            <!-- 교사의 추가 처방 -->
                             <section>
                                 <h4 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
-                                    <i data-lucide="pencil-line" class="w-5 h-5 text-amber-500"></i> 교사 추가 의견 및 실천 다짐 (직접 입력)
+                                    <i data-lucide="pencil-line" class="w-5 h-5 text-amber-500"></i> 교사의 추가 처방 (직접 입력)
                                 </h4>
                                 <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
                                     <textarea 
                                         id="custom-note-input"
                                         class="w-full h-32 p-4 bg-white border border-amber-200 rounded-xl text-sm placeholder:text-slate-400 focus:ring-2 focus:ring-amber-500/20"
-                                        placeholder="학생의 성장을 위해 선생님이 실천할 구체적인 수업 전략이나 격려의 한마디를 적어주세요. (예: 매일 아침 아이컨택과 함께 긍정적인 질문 던지기)"
+                                        placeholder="학생의 성장을 위해 선생님이 추가로 실천할 구체적인 수업 전략이나 피드백 계획을 적어주세요."
                                         oninput="updateNote(this.value)"
                                     >${state.customNote}</textarea>
                                     <p class="mt-2 text-[11px] text-amber-700 flex items-center gap-1">
-                                        <i data-lucide="alert-circle" class="w-3 h-3"></i> 입력하신 내용은 최종 성장 지원 설계도의 별도 섹션에 기록됩니다.
+                                        <i data-lucide="alert-circle" class="w-3 h-3"></i> 이 내용은 맞춤형 성장처방과 함께 최종 설계도의 4번 항목에 기록됩니다.
                                     </p>
                                 </div>
                             </section>
@@ -500,7 +500,6 @@
         function checkPrescriptionButtons() {
             const btn = document.getElementById('btn-next-3');
             if(!btn) return;
-            // AI 하나, 휴먼 터치 하나 이상 선택 시 활성화
             if (state.prescribedAI.length > 0 && state.prescribedHuman.length > 0) {
                 btn.disabled = false;
                 btn.className = "mt-12 w-full py-4 rounded-2xl font-bold transition-all bg-pink-600 text-white hover:bg-pink-700 shadow-xl";
@@ -520,14 +519,14 @@
         }
 
         function generateBlueprintHTML(p) {
-            const customNoteHTML = state.customNote ? `
+            const customNoteHTML = `
                 <div class="mt-6">
-                    <h5 class="text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-2 border-b">5. 교사의 추가 전략 및 실천 다짐 (Custom Note)</h5>
-                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-100 shadow-inner">
-                        <p class="text-sm text-amber-900 leading-relaxed whitespace-pre-wrap">${state.customNote}</p>
+                    <h5 class="text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-2 border-b">4. 교사의 추가 처방 (Teacher's Additional Prescription)</h5>
+                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-100 shadow-inner min-h-[80px]">
+                        <p class="text-sm text-amber-900 leading-relaxed whitespace-pre-wrap">${state.customNote || "선생님의 추가 처방 사항이 입력되지 않았습니다."}</p>
                     </div>
                 </div>
-            ` : '';
+            `;
 
             return `
                 <div class="blueprint-card text-left bg-slate-50 border-2 border-blue-900 rounded-3xl overflow-hidden shadow-inner">
@@ -552,7 +551,7 @@
                             <div class="space-y-6">
                                 <div>
                                     <h5 class="text-[10px] font-bold text-pink-600 uppercase tracking-widest mb-2 border-b">3. 맞춤형 성장 처방 (Prescription)</h5>
-                                    <div class="grid grid-cols-1 gap-4">
+                                    <div class="grid grid-cols-1 gap-3">
                                         <div class="p-3 bg-pink-50 rounded-xl border border-pink-100">
                                             <p class="text-[9px] font-bold text-pink-700 mb-1 uppercase">AI·Digital Tools</p>
                                             <p class="text-sm font-bold text-slate-800">${state.prescribedAI.join(', ')}</p>
@@ -563,17 +562,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h5 class="text-[10px] font-bold text-green-600 uppercase tracking-widest mb-2 border-b">4. 기대되는 성장 모습 (Growth)</h5>
-                                    <div class="p-4 bg-green-50 rounded-xl border border-green-100">
-                                        <p class="text-sm font-bold text-green-900 leading-relaxed">${p.growth}</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         
-                        <!-- 추가 기록 섹션 -->
+                        <!-- 4. 교사의 추가 처방 -->
                         ${customNoteHTML}
+
+                        <!-- 5. 기대되는 성장 모습 -->
+                        <div class="mt-6">
+                            <h5 class="text-[10px] font-bold text-green-600 uppercase tracking-widest mb-2 border-b">5. 기대되는 성장 모습 (Growth)</h5>
+                            <div class="p-4 bg-green-50 rounded-xl border border-green-100">
+                                <p class="text-sm font-bold text-green-900 leading-relaxed">${p.growth}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
